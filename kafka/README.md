@@ -14,21 +14,21 @@ https://www.youtube.com/watch?v=Bej0mMrr1nI
 
 # Por que vc precisa do apache-kafka? <h1>
 
-# Events: <h3>
+### Events:
 * Para sistemas conversar com outros sistemas
 * Devices IOT
 * MOnitoracao 
 * Alarms
 
-# Historico de Dados <h1>
+### Historico de Dados 
 - Armazena todos os eventos de dados
 
 
-# O que é streaming de eventos? <h1>
+### O que é streaming de eventos? 
 O streaming de eventos é o equivalente digital do sistema nervoso central do corpo humano. É a base tecnológica para o mundo "sempre ativo", onde as empresas são cada vez mais definidas e automatizadas por software .
 Tecnicamente falando, o streaming de eventos é a prática de capturar dados em tempo real de fontes de eventos como bancos de dados, sensores, dispositivos móveis, serviços em nuvem e aplicativos de software na forma de fluxos de eventos; armazenar esses fluxos de eventos de forma durável para recuperação posterior; manipular, processar e reagir aos fluxos de eventos em tempo real e também retrospectivamente; e rotear os fluxos de eventos para diferentes tecnologias de destino, conforme necessário. O streaming de eventos, portanto, garante um fluxo contínuo e interpretação dos dados para que as informações certas estejam no lugar certo, na hora certa.
 
-# Para que posso usar o streaming de eventos? <h1>
+### Para que posso usar o streaming de eventos? 
 O streaming de eventos é aplicado a uma ampla variedade de casos de uso em uma infinidade de setores e organizações. Seus muitos exemplos incluem:
 
 Para processar pagamentos e transações financeiras em tempo real, como em bolsas de valores, bancos e seguros.
@@ -39,7 +39,7 @@ Para monitorar pacientes em cuidados hospitalares e prever mudanças nas condiç
 Conectar, armazenar e disponibilizar dados produzidos por diferentes divisões de uma empresa.
 Para servir como base para plataformas de dados, arquiteturas orientadas a eventos e microsserviços.
 
-# Apache Kafka® é uma plataforma de streaming de eventos. O que isso significa? <h1>
+### Apache Kafka® é uma plataforma de streaming de eventos. O que isso significa? 
 O Kafka combina três recursos principais para que você possa implementar seus casos de uso para streaming de eventos de ponta a ponta com uma única solução testada em batalha:
 
 * Para publicar (gravar) e assinar (ler) fluxos de eventos, incluindo importação / exportação contínua de seus dados de outros sistemas.
@@ -47,7 +47,7 @@ O Kafka combina três recursos principais para que você possa implementar seus 
 * Para processar fluxos de eventos conforme eles ocorrem ou retrospectivamente.
 E toda essa funcionalidade é fornecida de maneira distribuída, altamente escalável, elástica, tolerante a falhas e segura. O Kafka pode ser implantado em hardware bare-metal, máquinas virtuais e contêineres, e no local, bem como na nuvem. Você pode escolher entre o autogerenciamento de seus ambientes Kafka e o uso de serviços totalmente gerenciados oferecidos por diversos fornecedores.
 
-# Como funciona o Kafka em poucas palavras? <h1>
+### Como funciona o Kafka em poucas palavras? 
 Kafka é um sistema distribuído que consiste em servidores e clientes que se comunicam por meio de um protocolo de rede TCP de alto desempenho . Ele pode ser implantado em hardware bare-metal, máquinas virtuais e contêineres no local, bem como em ambientes de nuvem.
 
 __Servidores__ : o Kafka é executado como um cluster de um ou mais servidores que podem abranger vários datacenters ou regiões de nuvem. Alguns desses __servidores formam a camada de armazenamento, chamados brokers__. Outros servidores executam o Kafka Connect para importar e exportar dados continuamente como fluxos de eventos para integrar o Kafka com seus sistemas existentes, como bancos de dados relacionais, bem como outros clusters Kafka. Para permitir que você implemente casos de uso de missão crítica, um cluster Kafka é altamente escalonável e tolerante a falhas: se algum de seus servidores falhar, os outros servidores assumirão seu trabalho para garantir operações contínuas sem qualquer perda de dados.
@@ -57,7 +57,7 @@ __Clientes__ : eles permitem que você escreva aplicativos e microsserviços dis
 
 ![Arquitetura Apache Kafka](./img01.png)
 
-# Principais conceitos e terminologia <h1>
+### Principais conceitos e terminologia 
 Um evento registra o fato de que "algo aconteceu" no mundo ou no seu negócio. Também é chamado de registro ou mensagem na documentação. Ao ler ou gravar dados no Kafka, você o faz na forma de eventos. Conceitualmente, um evento possui uma chave, valor, carimbo de data / hora e cabeçalhos de metadados opcionais. Aqui está um exemplo de evento:
 
 Chave do evento: "Alice"
@@ -72,16 +72,16 @@ Os topics são particionados , o que significa que __um topic é espalhado por v
 
 Para tornar seus dados tolerantes a falhas e altamente disponíveis, todos os topics podem ser replicados , mesmo em regiões geográficas ou datacenters, de modo que sempre haja vários brokers que tenham uma cópia dos dados, caso algo dê errado, você deseja fazer manutenção nos brokers e assim por diante. Uma configuração de produção comum é um fator de replicação de 3, ou seja, sempre haverá três cópias de seus dados. Essa replicação é realizada no nível das partições de topic.
 
-# Distribuição de partições entre Brokers <h1>
+### Distribuição de partições entre Brokers <h1>
 
-## Replication Broker <h3> 
+#### Replication Broker 
 
 Para tornar seus dados tolerantes a falhas e altamente disponíveis, todos os tópicos podem ser replicados, mesmo em regiões geográficas ou datacenters, de modo que sempre haja vários brokers com uma cópia dos dados, caso algo dê errado, você deseja fazer manutenção nos brokers e assim por diante. Uma configuração de produção comum é um fator de replicação de 3, ou seja, sempre haverá três cópias de seus dados. Essa replicação é realizada no nível das partições de tópico.
 
 Este primer deve ser suficiente para uma introdução. A seção Design da documentação explica os vários conceitos do Kafka em detalhes completos, se você estiver interessado.
 [documentação Apache Kafka](https://kafka.apache.org/documentation/#design) 
 
-## Delivery <h3>
+#### Delivery 
 
 Algoritmo Round Robin
 
@@ -100,7 +100,7 @@ Porém, existem casos que precisamos que de alguma forma as mensagens estejam or
 Exemplo, se enviamos uma mensagem com a key vendas e ela for gravada na partição 1, logo ela sempre será gravada na partição 1 e assim garantiremos a ordem das mensagens.
 
 
-## Partition Leadership <h3>
+#### Partition Leadership
 
 Cada partição possui um servidor que atua como "líder" e zero ou mais servidores que atuam como "seguidores". O líder lida com todas as solicitações de leitura e gravação para a partição, enquanto os seguidores replicam passivamente o líder. Se o líder falhar, um dos seguidores se tornará automaticamente o novo líder. Cada servidor atua como um líder para algumas de suas partições e um seguidor para outras, de forma que a carga seja bem balanceada dentro do cluster.
 Portanto, um líder de partição é, na verdade, o broker que atende a esse propósito e é responsável por todas as solicitações de leitura e gravação para essa partição específica.
@@ -108,7 +108,7 @@ Portanto, um líder de partição é, na verdade, o broker que atende a esse pro
 # Observação <h1> 
 `` Igualmente ao banco de dados ETCD, o kafka tambem utiliza o protocolo Raft para eleição de leaders e controle de Quorum "https://cwiki.apache.org/confluence/display/KAFKA/KIP-595%3A+A+Raft+Protocol+for+the+Metadata+Quorum" `` 
 
-## Eleição do líder da partição <h3>
+### Eleição do líder da partição
 
 A designação de um líder para uma partição específica acontece durante um processo denominado eleição do líder da partição . Este processo acontece quando o tópico / partição é criado ou quando o líder da partição (ou seja, o corretor) não está disponível por qualquer motivo.
 
@@ -117,7 +117,7 @@ Além disso, você pode forçar a eleição de réplica preferencial usando a __
 Com a replicação, cada partição pode ter várias réplicas. A lista de réplicas de uma partição é chamada de "réplicas atribuídas". A primeira réplica nesta lista é a "réplica preferida". Quando o tópico / partições são criados, Kafka garante que a "réplica preferencial" para as partições entre os tópicos seja igualmente distribuída entre os brokers em um cluster. Em um cenário ideal, o líder para uma determinada partição deve ser a "réplica preferida". Isso garante que a carga de liderança entre os brokers em um cluster seja equilibrada de maneira uniforme. No entanto, com o tempo, a carga de liderança pode ficar desequilibrada devido a desligamentos do broker (causados ​​por desligamento controlado, travamentos, falhas de máquina, etc.). 
 Essa ferramenta ajuda a restaurar o equilíbrio de liderança entre os corretores do cluster.
 
-# Producer <h1>
+### Producer 
 
 Delivery Process
 1 - Record (vou falar qual é o Topic, qual é key, qual é o value)
@@ -151,7 +151,7 @@ Antes de 0.11.0.0, se um produtor não recebesse uma resposta indicando que uma 
 
 Nem todos os casos de uso exigem tais garantias fortes. __Para usos sensíveis à latência, permitimos que o produtor especifique o nível de durabilidade que deseja__. Se o produtor especificar que deseja aguardar a confirmação da mensagem, isso pode demorar cerca de 10 ms. No entanto, o produtor também pode especificar que deseja executar o envio de forma totalmente assíncrona ou que deseja aguardar apenas até que o líder (mas não necessariamente os seguidores) receba a mensagem.
 
-## Idempotent Producers <h3>
+## Idempotent Producers 
 
 o que é o recurso Idempotent Producer?
 Quando um producer envia mensagens para um tópico, as coisas podem dar errado, como falhas de conexão etc. Quando isso acontece, todas as mensagens com confirmações pendentes podem ser reenviadas ou descartadas. As mensagens podem ter sido escritas com sucesso no tópico, ou não, não há como saber. Se reenviarmos, podemos duplicar a mensagem, mas se não reenviarmos, a mensagem pode essencialmente ser perdida.
@@ -159,7 +159,7 @@ Além disso, o reenvio de mensagens pode fazer com que a ordem das mensagens dê
 
 O recurso de idepomtent Producers aborda esses problemas garantindo que as mensagens sempre sejam entregues, na ordem certa e sem duplicidades.
 
-## Como o Idempotent Producer funciona? <h3>
+#### Como o Idempotent Producer funciona? 
 Quando enable.idempotence é definido como true, nenhuma nova tentativa manual é necessária; na verdade, executar novas tentativas no código do aplicativo ainda causará duplicatas. Deixe as tentativas para sua biblioteca cliente, é totalmente transparente para você como desenvolvedor.
 
 Portanto, novas tentativas são feitas, mas como o broker pode identificar mensagens duplicadas e descartá-las?
@@ -193,7 +193,7 @@ Se você já usa acks = all, não há razão para não ativar esse recurso. Ele 
 
 Se você atualmente usa acks = 0 ou acks = 1 por razões de latência e taxa de transferência, você pode considerar ficar longe desse recurso. Acks = all aumenta as latências e a variabilidade da latência. Se você já usa acks = 0 ou acks = 1, provavelmente valoriza os benefícios de desempenho em relação à consistência de dados.
 
-## Breve explicação sobre acks <h4>
+## Breve explicação sobre acks
 A acks é uma configuração de cliente (producer). Ele denota o número de corretores que devem receber o registro antes de considerarmos a gravação como bem-sucedida. Ele suporta três valores __- 0, 1 e all.__
 
 __'acks = 0'__
@@ -208,7 +208,7 @@ __'acks = all'__
 Quando definido como all, o producer considerará a gravação bem-sucedida quando todas as réplicas sincronizadas receberem o registro. Isso é conseguido pelo corretor líder sendo inteligente ao responder à solicitação - ele enviará uma resposta assim que todas as réplicas sincronizadas receberem o registro.
 ![acks all](./acksall.png)
 
-## Utilidade do Acks <h3>
+## Utilidade do Acks 
 Como você pode ver, a configuração de acks é uma boa maneira de configurar sua escolha preferida entre garantias de durabilidade e desempenho.
 Se você gostaria de ter certeza de que seus registros estão bons e seguros - configure seus acks para all.
 Se você valoriza a latência e o rendimento do que dormir bem à noite, defina um limite baixo de 0. Você pode ter uma chance maior de perder mensagens, mas inerentemente tem melhor latência e taxa de transferência.
@@ -230,17 +230,17 @@ Um equívoco comum é achar que a configuração __min.insync.replicas__ denota 
 Isso não é verdade - para a que a solicitação seja processada é necessário ter na verdade um numero de replicas sincronizadas .
 Ou seja, se houver três réplicas sincronizadas e min.insync.replicas=2, o líder responderá apenas quando todas as três réplicas tiverem o registro.
 
-# Consumers <h1>
+## Consumers 
 
-## Kafka Consumers: Lendo Dados do Kafka <h3>
+#### Kafka Consumers: Lendo Dados do Kafka 
 
 Os aplicativos que precisam ler dados do Kafka usam um Kafka Consumer para assinar os tópicos do Kafka e receber mensagens desses tópicos. Ler dados do Kafka é um pouco diferente do que ler dados de outros sistemas de mensagens e há poucos conceitos e ideias exclusivos envolvidos. É difícil entender como usar a API do consumidor sem entender esses conceitos primeiro. Começaremos explicando alguns dos conceitos importantes e, em seguida, passaremos por alguns exemplos que mostram as diferentes maneiras como as APIs de consumidor podem ser usadas para implementar aplicativos com requisitos variados.
 
-## Kafka Consumer: Conceitos <h3>
+## Kafka Consumer: Conceitos 
 
 Para entender como ler os dados do Kafka, primeiro você precisa entender seus __consumidores e grupos de consumidores__. As seções a seguir cobrem esses conceitos.
 
-## Consumidores e grupos de consumidores <h3>
+## Consumidores e grupos de consumidores 
 Suponha você tem um aplicativo que precisa ler mensagens de um tópico Kafka, executar algumas validações nelas e gravar os resultados em outro armazenamento de dados. Neste caso, sua aplicação irá criar um objeto consumidor, assinar o tópico apropriado e começar a receber mensagens, validando-as e escrevendo os resultados. Isso pode funcionar bem por um tempo, mas e se a taxa em que os produtores gravam mensagens no tópico exceder a taxa em que seu aplicativo pode validá-las? Se você estiver limitado a um único consumidor lendo e processando os dados, seu aplicativo pode ficar cada vez mais para trás, incapaz de acompanhar a taxa de mensagens recebidas. Obviamente, é necessário dimensionar o consumo a partir dos tópicos. Assim como vários produtores podem escrever no mesmo tópico, precisamos permitir que vários consumidores leiam o mesmo tópico,
 
 Os consumidores de Kafka normalmente fazem parte de um consumer group. Quando vários consumidores estão inscritos em um tópico e pertencem ao mesmo grupo de consumidores, cada consumidor no grupo receberá mensagens de um subconjunto diferente de partições no tópico.
@@ -258,7 +258,7 @@ No exemplo anterior, se adicionarmos um novo grupo de consumidores G2 com um ún
 
 Para resumir, você cria um novo grupo de consumidores para cada aplicativo que precisa de todas as mensagens de um ou mais tópicos. Você adiciona consumidores a um grupo de consumidores existente para dimensionar a leitura e o processamento de mensagens dos tópicos, de forma que cada consumidor adicional em um grupo obtenha apenas um subconjunto das mensagens.
 
-## Grupos de consumidores e reequilíbrio de partições <h3>
+## Grupos de consumidores e reequilíbrio de partições
 
 Como vimos na seção anterior, os consumidores em um grupo de consumidores compartilham a propriedade das partições nos tópicos que assinam. Quando adicionamos um novo consumidor ao grupo, ele começa a consumir mensagens de partições anteriormente consumidas por outro consumidor. A mesma coisa acontece quando um consumidor desliga ou quebra; ele sai do grupo e as partições que costumava consumir serão consumidas por um dos consumidores restantes. A reatribuição de partições aos consumidores também ocorre quando os tópicos que o grupo de consumidores está consumindo são modificados (por exemplo, se um administrador adicionar novas partições).
 
@@ -273,12 +273,12 @@ Na liberação 0.10.1, a comunidade Kafka introduziu um encadeamento de pulsaç�
 
 O resto do capítulo discutirá alguns dos desafios com os comportamentos mais antigos e como o programador pode lidar com eles. Este capítulo inclui uma discussão sobre como lidar com aplicativos que demoram mais para processar registros. Isso é menos relevante para leitores que executam o Apache Kafka 0.10.1 ou posterior. Se você estiver usando uma nova versão e precisar lidar com registros que demoram mais para serem processados, **basta ajustar max.poll.interval.mspara** lidar com atrasos mais longos entre as pesquisas de novos registros.
 
-## COMO FUNCIONA O PROCESSO DE ATRIBUIÇÃO DE PARTIÇÕES A CORRETORES? <h3>
+## COMO FUNCIONA O PROCESSO DE ATRIBUIÇÃO DE PARTIÇÕES A CORRETORES? 
 Quando um consumidor deseja ingressar em um grupo, ele envia uma solicitação JoinGroup ao coordenador do grupo. **O primeiro consumidor a ingressar no grupo torna-se o líder do grupo** . O líder recebe uma lista de todos os consumidores no grupo do coordenador do grupo (isso incluirá todos os consumidores que enviaram uma pulsação recentemente e que, portanto, são considerados ativos) e é responsável por atribuir um subconjunto de partições a cada consumidor. Ele usa uma implementação de PartitionAssignor para decidir quais partições devem ser tratadas por qual consumidor.
 
 O Kafka tem duas políticas de atribuição de partição integradas, que discutiremos com mais detalhes na seção de configuração. Depois de decidir sobre a atribuição da partição, o líder do grupo de consumidores envia a lista de atribuições ao GroupCoordinator, que envia essas informações a todos os consumidores. Cada consumidor vê apenas sua própria atribuição - o líder é o único processo do cliente que possui a lista completa de consumidores no grupo e suas atribuições. Este processo se repete sempre que ocorre um rebalanceamento.
 
-## Criando um Consumidor Kafka <h3>
+## Criando um Consumidor Kafka 
 A primeira etapa para começar a consumir registros é criar uma instância KafkaConsumer. Criar um KafkaConsumer é muito semelhante a criar um KafkaProducer- você cria uma instância Java Properties com as propriedades que deseja passar ao consumidor. Discutiremos todas as propriedades em detalhes posteriormente neste capítulo.Para começar, só precisa usar as __três propriedades obrigatórias: bootstrap.servers, key.deserializer, e value.deserializer__.
 
 A primeira propriedade,, __bootstrap.servers é a string de conexão para um cluster Kafka__. É usado exatamente da mesma maneira que em KafkaProducer. As outras duas propriedades, key.deserializere value.deserializer, são semelhantes às serializers definidas para o produtor, mas em vez de especificar classes que transformam objetos Java em matrizes de bytes, você precisa especificar classes que podem pegar uma matriz de bytes e transformá-la em um objeto Java.
