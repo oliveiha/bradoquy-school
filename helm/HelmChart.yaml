@@ -1,0 +1,107 @@
+O Helm é bastante fácil de usar como uma ferramenta de linha de comando. Você apenas diz para instalar isso, desinstalar aquilo, atualizar algo, reverter para um estado anterior e assim por diante, e ele continua fazendo todo o trabalho pesado nos bastidores. É basicamente uma ferramenta de automação onde nós, os operadores humanos, especificamos nosso resultado final desejado, o destino. E então não importa se 5, 10, 20 ou 50 ações são necessárias para alcançar esse resultado final, chegar a esse destino, o Helm passará por todas as etapas necessárias sem nos incomodar com os detalhes. Mas como na linha de comando não fornecemos muitas informações a essa ferramenta, exceto Ei, eu quero isso instalado , como ela sabe como atingir esse objetivo?
+
+O Helm sabe como fazer seu trabalho com a ajuda dos chamados gráficos . Os gráficos são como um manual de instruções para isso. Ao ler e interpretar seu conteúdo, ele sabe exatamente o que deve fazer para atender à solicitação de um usuário.
+
+Para nós, os operadores humanos, os gráficos do Helm são apenas um monte de arquivos de texto. Cada arquivo específico, nomeado de uma maneira específica, tem um propósito bem definido. Por exemplo, conforme discutido anteriormente, no arquivo values.yaml encontraremos parâmetros que podemos passar para o gráfico para que tudo seja instalado com as opções de configuração definidas como desejamos. No Chart.yaml , encontraremos informações sobre o gráfico em si, como números de versão dos componentes que usamos, dependências, e-mails dos mantenedores, uma descrição sobre o que o gráfico faz e assim por diante.
+
+
+Dependências do gráfico
+Existem também diretórios (pastas) que encontraremos nesta estrutura. Por exemplo, na pasta de gráficos, encontraremos outros gráficos dos quais nosso gráfico principal pode depender. Algo como o WordPress pode depender de um gráfico MariaDB/MySQL, então um servidor de banco de dados pode ser disponibilizado antes que seus outros componentes do gráfico sejam instalados. Esse aninhamento de gráficos em gráficos torna nossa vida muito mais fácil. Se isso não fosse possível, teríamos que instalar primeiro o gráfico do banco de dados, depois talvez alguns outros gráficos, um por um, até que, finalmente, pudéssemos instalar nosso aplicativo principal. Na prática, para algo como o WordPress, teríamos que digitar três comandos como:
+
+helm install some_database_server ...
+helm install wordpress_with_http_server ...
+helm install memcached ...
+Mas, aninhando gráficos, agora podemos instalar tudo o que é necessário, com um único comando em vez de três. Isso também significa um único comando para atualizar todos esses componentes e um único comando para desinstalar todos eles (em vez de três).
+
+Além do fato de que com gráficos de dependência podemos instalar 10 coisas diferentes com um único comando, o importante é que também facilita escrever instruções em nosso gráfico para garantir que todos os componentes possam se interconectar magicamente para que nosso pacote de aplicativos funcione perfeitamente sem nenhum esforço extra da nossa parte (após a instalação).
+
+Modelos de gráfico
+O diretório mais importante nos gráficos do Helm, no entanto, é a pasta de modelos . No final do dia, o Helm faz toda a sua mágica e instala um aplicativo em nosso cluster implantando muitos objetos Kubernetes diferentes, um por um. E é na pasta templates que ele encontra as principais informações sobre como fazer isso. Por exemplo, para um gráfico implantar um site WordPress, ele precisaria iniciar uma implantação Nginx, um serviço, talvez um configmap , adicionar alguns segredos para armazenar senhas e assim por diante. Esses são todos objetos regulares do Kubernetes. O Helm lê arquivos no diretório de templates, passa-os por seu mecanismo de modelagem e, finalmente, gera a declaração do objeto (ou manifesto ), o tipo regular de saída que você veria em um .yamlarquivo que você adicionaria ao Kubernetes com um kubectl apply -f deployment.yamlcomando.
+
+Aqui está um exemplo de quais arquivos um gráfico de leme do WordPress contém na pasta de modelos:
+
+controlplane ~/wordpress/templates ➜  ll
+total 120
+drwxr-xr-x 2 root root  4096 Jan 27 08:55 ./
+drwxr-xr-x 5 root root  4096 Jan 27 08:55 ../
+-rw-r--r-- 1 root root  5721 Jan 26 18:24 NOTES.txt
+-rw-r--r-- 1 root root  9774 Jan 26 18:24 _helpers.tpl
+-rw-r--r-- 1 root root   716 Jan 26 18:24 config-secret.yaml
+-rw-r--r-- 1 root root 19749 Jan 26 18:24 deployment.yaml
+-rw-r--r-- 1 root root   770 Jan 26 18:24 externaldb-secrets.yaml
+-rw-r--r-- 1 root root   117 Jan 26 18:24 extra-list.yaml
+-rw-r--r-- 1 root root  1276 Jan 26 18:24 hpa.yaml
+-rw-r--r-- 1 root root   727 Jan 26 18:24 httpd-configmap.yaml
+-rw-r--r-- 1 root root  2785 Jan 26 18:24 ingress.yaml
+-rw-r--r-- 1 root root  1145 Jan 26 18:24 metrics-svc.yaml
+-rw-r--r-- 1 root root  1216 Jan 26 18:24 networkpolicy-backend-ingress.yaml
+-rw-r--r-- 1 root root  1300 Jan 26 18:24 networkpolicy-egress.yaml
+-rw-r--r-- 1 root root  3440 Jan 26 18:24 networkpolicy-ingress.yaml
+-rw-r--r-- 1 root root   883 Jan 26 18:24 pdb.yaml
+-rw-r--r-- 1 root root  2007 Jan 26 18:24 postinit-configmap.yaml
+-rw-r--r-- 1 root root  1251 Jan 26 18:24 pvc.yaml
+-rw-r--r-- 1 root root  1098 Jan 26 18:24 secrets.yaml
+-rw-r--r-- 1 root root   826 Jan 26 18:24 serviceaccount.yaml
+-rw-r--r-- 1 root root  2073 Jan 26 18:24 servicemonitor.yaml
+-rw-r--r-- 1 root root  2705 Jan 26 18:24 svc.yaml
+-rw-r--r-- 1 root root  1649 Jan 26 18:24 tls-secrets.yaml
+Esses nomes de arquivo indicam os mesmos objetos do Kubernetes que estamos acostumados a iniciar com os comandos kubectl apply -f . Podemos ver um arquivo pvc.yaml , indicando uma reivindicação de volume persistente, um arquivo deployment.yaml , indicando uma implantação e assim por diante. Mas se abrirmos um desses arquivos, veremos que eles estão escritos de uma maneira bem estranha. Aqui está uma seção de um arquivo deployment.yaml:
+
+      containers:
+        - name: wordpress
+          image: {{ template "wordpress.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- if .Values.command }}
+          command: {{- include "common.tplvalues.render" ( dict "value" .Values.command "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args: {{- include "common.tplvalues.render" ( dict "value" .Values.args "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+Em vez de uma linha como imagePullPolicy:Always, vemos a linha de aparência estranha imagePullPolicy: {{ .Values.image.pullPolicy | quote }}. Esta é a linguagem de modelagem para o Helm. A sintaxe é específica para a linguagem de programação Go. Nesse caso, a linha imagePullPolicy: {{ .Values.image.pullPolicy | quote }}atribui a imagePullPolicy o valor que os usuários forneceram em seu arquivo values.yaml.
+
+Preferências definidas pelo usuário no arquivo values.yaml
+Aqui está a parte relevante do arquivo values.yaml :
+
+## @section WordPress Image parameters
+
+## Bitnami WordPress image
+## ref: https://hub.docker.com/r/bitnami/wordpress/tags/
+## @param image.registry WordPress image registry
+## @param image.repository WordPress image repository
+## @param image.tag WordPress image tag (immutable tags are recommended)
+## @param image.pullPolicy WordPress image pull policy
+## @param image.pullSecrets WordPress image pull secrets
+## @param image.debug Enable image debug mode
+##
+image:
+  registry: docker.io
+  repository: bitnami/wordpress
+  tag: 5.7.2-debian-10-r13
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## e.g:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+  ## Enable debug mode
+  ##
+  debug: false
+
+Portanto, qualquer valor que atribuímos pullPolicy:aqui, ele é passado para o arquivo de modelo, o Helm interpreta tudo e transforma uma linha como imagePullPolicy: {{ .Values.image.pullPolicy | quote }}se imagePullPolicy: "Always" o usuário selecionasse Sempre como sua política preferida em seu arquivo values.yaml . Em poucas palavras, o Helm pega os arquivos da pasta “templates”, os passa pelo mecanismo de modelagem (enquanto também extrai as preferências definidas pelo usuário no arquivo values.yaml ) e, em seguida, gera os dados yaml regulares que são enviados ao Kubernetes para criar qualquer objeto. 
+
+Em vez de ter valores fixos aqui, como fazemos nos arquivos yaml regulares que geralmente implantamos no Kubernetes, temos valores modelados . Parece misterioso? Vamos ver o que isso significa; é realmente fácil de entender, mas o termo técnico é um pouco enigmático.
+
+Modelo de leme
+A equipe que cria o WordPress também pode criar gráficos, para que os usuários possam instalar este produto de software facilmente nos clusters do Kubernetes. Mas isso apresenta um problema. Você não pode fazer uma instalação do WordPress, com algumas configurações fixas, que seriam perfeitas para milhares de pessoas. Mas, em vez disso, você pode criar um modelo, uma espécie de instalação padrão, com configurações ajustáveis ​​que todos podem ajustar facilmente de acordo com suas próprias necessidades.
+
+A linguagem de templates que o Helm usa é incrivelmente versátil e nos permite criar templates muito inteligentes. Além de coisas simples, como pegar valores fornecidos pelo usuário do arquivo values.yaml e usá-los nesses modelos para personalizar os objetos do Kubernetes que são criados, podemos até fazer nossos próprios modelos gerarem valores dinamicamente. Por exemplo, podemos adicionar condições: caso o usuário tenha algo específico em seu cluster, também podemos fazer com que o gráfico ajuste automaticamente alguns parâmetros de instalação. Também podemos pegar valores fornecidos pelo usuário e transformá-los de alguma forma. Podemos adicionar valores padrão caso o usuário não forneça nenhum valor. Pode-se gerar valores dinamicamente com base em coisas dinâmicas, como a data de hoje.
