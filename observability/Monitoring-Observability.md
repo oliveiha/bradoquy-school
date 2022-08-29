@@ -7,24 +7,30 @@ images/obs01.png
 *Monitoring != Logging != Tracing != Instrumentation*
 
 ## Logging
-Proposta - representa a transformação de estado ou eventos dentro de um aplicativo. Quando as coisas dão errado, os logs são úteis para identificar qual evento causou o erro.
+- Proposta - representa a transformação de estado ou eventos dentro de um aplicativo. Quando as coisas dão errado, os logs são úteis para identificar qual evento causou o erro.
 
-Pros e Cons - Obter, transferir, armazenar e analisar logs é caro. Registre apenas informações importantes e acionáveis.
+* Pros e Cons - Obter, transferir, armazenar e analisar logs é caro. Registre apenas informações importantes e acionáveis.
 
-Tools e Frameworks - dependendo do ambiente technologico. e.g, logback, log4j, etc. Splunk
+* Tools e Frameworks - dependendo do ambiente technologico. e.g, logback, log4j, etc. Splunk
 
 ## Tracing
-Proposta - representa a jornada de um único usuário por uma pilha inteira de um aplicativo. Frequentemente usado para fins de otimização.
-Pros e Con - As bibliotecas de tracing geralmente são mais complicadas do que o código que estão servindo. Então o rastreamento tende a ser caro.
-Tools e Frameworks - OpenTracing 
+- Proposta - representa a jornada de um único usuário por uma pilha inteira de um aplicativo. Frequentemente usado para fins de otimização.
+* Pros e Con 
+- As bibliotecas de tracing geralmente são mais complicadas do que o código que estão servindo. 
+- Então o rastreamento tende a ser caro.
+* Tools e Frameworks - OpenTracing 
 
 ## Monitoring
-Proposta - Instrumentar uma aplicação e monitorar os resultados representa o uso de um sistema. Muitas vezes usado para fins de diagnóstico. Monitore aplicativos para detectar problemas e anomalias. Testes básicos de condicionamento físico, como o aplicativo está ativo ou inativo, e verificações de saúde mais proativas. 
-Fornece insights sobre os requisitos de capacidade.
+- Proposta - Instrumentar uma aplicação e monitorar os resultados representa o uso de um sistema. Muitas vezes usado para fins de diagnóstico. 
+  Monitore aplicativos para detectar problemas e anomalias. 
+  Testes básicos de condicionamento físico, como o aplicativo está ativo ou inativo, e health checks proativos. 
+  Forneça insights sobre os requisitos de capacidade.
 
-Pros e Con - A instrumentação geralmente é barata para calcular. As métricas levam nanossegundos para serem atualizadas e alguns sistemas de monitoramento operam em um modelo “pull”, o que significa que o serviço não é afetado pela carga de monitoramento.
+* Pros e Con 
+- A instrumentação geralmente é barata. 
+- As métricas levam nanossegundos para serem atualizadas e alguns sistemas de monitoramento operam em um modelo “pull”, o que significa que o serviço não é afetado pela carga de monitoramento.
 
-Tools e Fremeworks - Prometheus, DynaTrace, Wily
+* Tools e Fremeworks - Prometheus, DynaTrace, Wily
 
 __________________________________
 ## Monitoring
