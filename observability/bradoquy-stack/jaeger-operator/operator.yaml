@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: jaeger-operator
+  template:
+    metadata:
+      labels:
+        name: jaeger-operator
+    spec:
+      serviceAccountName: jaeger-operator
+      containers:
+      - name: jaeger-operator
+        image: jaegertracing/jaeger-operator:1.18.1
+        ports:
+        - containerPort: 8383
+          name: http-metrics
+        - containerPort: 8686
+          name: cr-metrics
+        args: ["start", "--tracing-enabled=true"]
+        imagePullPolicy: Always
+        env:
+        - name: WATCH_NAMESPACE
+          value: " "
+
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: OPERATOR_NAME
+          value: "jaeger-operator"
+      - name: jaeger-agent
+        image: jaegertracing/jaeger-agent:1.18
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        args:
+        - --reporter.grpc.host-port=dns:///jaeger-collector-headless.promethueus.svc.cluster.local:14250
+        ports:
+        - containerPort: 6831
+          name: jg-compact-trft
+          protocol: UDP

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "bradoquy-metrics.fullname" . }}-test-connection"
+  labels:
+    {{- include "bradoquy-metrics.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "bradoquy-metrics.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

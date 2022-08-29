@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    meta.helm.sh/release-name: api-survey
+    meta.helm.sh/release-namespace: meubank-qa
+  creationTimestamp: "2020-09-22T21:45:07Z"
+  labels:
+    app.kubernetes.io/instance: api-survey
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: slugrunner
+    helm.sh/chart: slugrunner-0.1.0
+  name: api-survey
+  namespace: meubank-qa
+  resourceVersion: "82201667"
+  selfLink: /api/v1/namespaces/meubank-qa/services/api-survey
+  uid: d6f169a6-6bd1-4d64-a1c0-0a8631fda31e
+spec:
+  clusterIP: 10.8.6.203
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http
+    nodePort: 30028
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app.kubernetes.io/instance: api-survey
+    app.kubernetes.io/name: slugrunner
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

@@ -1,0 +1,10 @@
+groups:
+  - name: spring-apps
+    rules:
+      - alert: RequestRate
+        expr:  rate(http_server_requests_seconds_count{application="$application"}[5m]) > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: Application stopped receiving requests

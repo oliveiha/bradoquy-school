@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: bradoquy-metrics
+  labels:
+    app.kubernetes.io/instance: bradoquy-metrics
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bradoquy-metrics
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+  - port: "8080"
+    path: /actuator/prometheus
+    interval: 10s

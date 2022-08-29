@@ -1,0 +1,211 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-cashin-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-cashin-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: mibanquito-cashin-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-auth-service
+  labels:
+    app: mibanquito-auth-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: mibanquito-auth-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-bank-account-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-bank-account-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-bank-account-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-config-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-config-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-config-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-eureka-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-eureka-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-eureka-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-partner-transfer-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-partner-transfer-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-partner-transfer-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s    
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-transfer-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-transfer-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-transfer-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-turbine-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-turbine-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-turbine-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s   
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-user-account-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-user-account-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-user-account-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s  
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: meubankqa-zuul-service
+  labels:
+    app.kubernetes.io/instance: mibanquito-zuul-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mibanquito-zuul-service
+  namespaceSelector:
+    matchNames:
+      - meubank-qa
+  endpoints:
+  - port: http
+    path: /actuator/prometheus
+    interval: 10s       
+
+
+
+    

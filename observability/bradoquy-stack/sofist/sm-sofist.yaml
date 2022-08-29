@@ -1,0 +1,503 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-abacus
+  labels:
+    app.kubernetes.io/instance: abacus
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: abacus
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-banco-central
+  labels:
+    app: banco-central
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: banco-central
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-baseado
+  labels:
+    app.kubernetes.io/instance: baseado
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: baseado
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-blue-boy
+  labels:
+    app.kubernetes.io/instance: blue-boy
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: blue-boy
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-common-services
+  labels:
+    app.kubernetes.io/instance: common-services
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: common-services
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-genesis
+  labels:
+    app.kubernetes.io/instance: genesis
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: genesis
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s    
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-hodor
+  labels:
+    app.kubernetes.io/instance: hodor
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: hodor
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-ingress
+  labels:
+    app.kubernetes.io/instance: ingress
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: ingress
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s   
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-kyc-fees
+  labels:
+    app.kubernetes.io/instance: kyc-fees
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: kyc-fees
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s  
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-magnet
+  labels:
+    app.kubernetes.io/instance: magnet
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: magnet
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-match-simulator
+  labels:
+    app.kubernetes.io/instance: match-simulator
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: match-simulator
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s    
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-mb-website
+  labels:
+    app.kubernetes.io/instance: mb-website
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mb-website
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s  
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-opportunity
+  labels:
+    app.kubernetes.io/instance: opportunity
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: opportunity
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s  
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-pacaembu
+  labels:
+    app.kubernetes.io/instance: pacaembu
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: pacaembu
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s 
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-parperfeito
+  labels:
+    app.kubernetes.io/instance: parperfeito
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: parperfeito
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /BRLBTC/candles?prec=1d
+    interval: 15s  
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-populate-orderbook
+  labels:
+    app.kubernetes.io/instance: populate-orderbook
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: populate-orderbook
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s  
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-spark
+  labels:
+    app.kubernetes.io/instance: spark
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: spark
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s  
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-teller
+  labels:
+    app.kubernetes.io/instance: teller
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: teller
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s   
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-teller-worker
+  labels:
+    app.kubernetes.io/instance: teller-worker
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: teller-worker
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s 
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-tictac
+  labels:
+    app.kubernetes.io/instance: tictac
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tictac
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s   
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-tinder
+  labels:
+    app.kubernetes.io/instance: tinder
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tinder
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s    
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-tinder-publisher
+  labels:
+    app.kubernetes.io/instance: tinder-publisher
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tinder-publisher
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s       
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-workerbook
+  labels:
+    app.kubernetes.io/instance: workerbook
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: workerbook
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 10s   
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sofist-wow
+  labels:
+    app.kubernetes.io/instance: wow
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: wow
+  namespaceSelector:
+    matchNames:
+      - sofist
+  endpoints:
+  - port: "80"
+    path: /probe
+    interval: 15s           
+
+                   

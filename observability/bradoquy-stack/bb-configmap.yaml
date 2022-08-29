@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-blackbox-exporter
+  labels:
+    app: prometheus-blackbox-exporter
+data:
+  blackbox.yaml: |
+    modules:
+      http_2xx:
+        http:
+          method: GET
+          no_follow_redirects: false
+          preferred_ip_protocol: ip4
+          valid_http_versions:
+          - HTTP/1.1
+          - HTTP/2
+          valid_status_codes: [200]
+        prober: http
+        timeout: 1m      
+      http_post_2xx:
+        prober: http
+        http:
+          method: POST
+          valid_status_codes: [200,404]      
+      match-simulator:
+        prober: http
+        timeout: 30s
+        http:
+          method: POST
+          valid_status_codes: [200]
+          headers:
+            POST: 'HTTP/1.1'
+            Content-Type: application/json
+            Accept: Application/json
+            Cache-Control: 'no-cache'
+          body: '{  
+                    "pair": "BRLBTC",
+                    "side": "ASK",
+                    "order_type": "LIMIT",
+                    "volume": "1",
+                    "price": "10000"
+                 }'     
+      survey-meubank:
+        prober: http
+        timeout: 30s
+        http:
+          valid_http_versions: ["HTTP/1.1", "HTTP/2"]
+          method: POST
+          valid_status_codes: [200]
+          headers:
+            Accept-Encoding: gzip, deflate, br
+            Connection: keep-alive
+            Host: "api-survey.meubank-qa.svc.cluster.local"
+            Content-Type: application/json            
+          body: '{
+                    "bank_advanced":"organizar-as-financas,servicos-e-aplicativos,pagar-criptomoedas,pedir-emprestimos,rachar-gastos",
+                    "bank_basic":"cartao-da-conta,recarregar-o-celular,recarregar-bilhete-de-transporte-publico,pagar-impostos-e-servicos-publicos",
+                    "bank_investment":"renda-fixa,acoes,criptomoedas,cambio,tokens-de-ativos-reais",
+                    "bank_investor_profile":1,
+                    "customer_ideas":"Ideias para meu banco digital",
+                    "collaborate_research":true
+                 }'           

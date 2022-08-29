@@ -1,0 +1,45 @@
+# Default values for jaeger-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: jaegertracing/jaeger-operator
+  tag: 1.19.0
+  pullPolicy: IfNotPresent
+  imagePullSecrets: []
+
+crd:
+  install: true
+
+jaeger:
+  # Specifies whether Jaeger instance should be created
+  create: false
+  spec: {}
+
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
+  pspEnabled: true
+  clusterRole: true
+
+serviceAccount:
+  # Specifies whether a ServiceAccount should be created
+  create: true
+  # The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+resources: 
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+    cpu: 500m
+    memory: 500Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+securityContext: {}
